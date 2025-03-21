@@ -3,6 +3,7 @@ using OdontoPrevAPI.Data;
 using OdontoPrevAPI.Dtos;
 using OdontoPrevAPI.Models;
 using OdontoPrevAPI.Repositories.Interfaces;
+using System.Reflection.Metadata;
 
 namespace OdontoPrevAPI.Repositories.Implementations
 {
@@ -28,11 +29,12 @@ namespace OdontoPrevAPI.Repositories.Implementations
             string formattedDate = raioX.DtDataRaioX.ToString("yyyy-MM-dd");
 
             // Use the INSERT_RAIO_X procedure from PKG_CRUD_RAIO_X
+            // NULL temporario para a Imagem do RaioX
             await _context.Database.ExecuteSqlInterpolatedAsync($@"
                 BEGIN
                     PKG_CRUD_RAIO_X.INSERT_RAIO_X(
                         {raioX.DsRaioX},
-                        {raioX.ImRaioX},
+                        NULL, 
                         TO_DATE({formattedDate}, 'YYYY-MM-DD'),
                         {raioX.IdPaciente}
                     );

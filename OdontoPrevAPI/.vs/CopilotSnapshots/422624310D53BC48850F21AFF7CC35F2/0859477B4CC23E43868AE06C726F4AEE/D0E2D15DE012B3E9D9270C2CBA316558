@@ -1,4 +1,4 @@
-using System;
+Ôªøusing System;
 using System.Collections.Generic;
 using OdontoPrevAPI.Dtos;
 
@@ -8,8 +8,8 @@ namespace OdontoPrevAPI.Tools
     {
         public static List<PlanoDtos> ListaPlanos = new()
         {
-            new PlanoDtos { DsCodigoPlano = "ODP001", NmPlano = "B·sico" },
-            new PlanoDtos { DsCodigoPlano = "ODP002", NmPlano = "Intermedi·rio" },
+            new PlanoDtos { DsCodigoPlano = "ODP001", NmPlano = "B√°sico" },
+            new PlanoDtos { DsCodigoPlano = "ODP002", NmPlano = "Intermedi√°rio" },
             new PlanoDtos { DsCodigoPlano = "ODP003", NmPlano = "Premium" },
             new PlanoDtos { DsCodigoPlano = "ODP004", NmPlano = "Empresarial" },
             new PlanoDtos { DsCodigoPlano = "ODP005", NmPlano = "Familiar" },
@@ -24,13 +24,13 @@ namespace OdontoPrevAPI.Tools
         {
             new DentistaDtos { NmDentista = "Dr. Otto Canino", DsCro = "CRO312544", DsEmail = "otto.canino@gmail.com", NrTelefone = "31932158752", DsDocIdentificacao = "12579320000127" },
             new DentistaDtos { NmDentista = "Dr. Ben Dente", DsCro = "CR245565", DsEmail = "ben.dente@gmail.com", NrTelefone = "62901985212", DsDocIdentificacao = "16874896000178" },
-            new DentistaDtos { NmDentista = "Dr. ¡lvaro Canal", DsCro = "CR52865", DsEmail = "alvaro.canal@gmail.com", NrTelefone = "11999855776", DsDocIdentificacao = "59225989000184" },
+            new DentistaDtos { NmDentista = "Dr. √Ålvaro Canal", DsCro = "CR52865", DsEmail = "alvaro.canal@gmail.com", NrTelefone = "11999855776", DsDocIdentificacao = "59225989000184" },
             new DentistaDtos { NmDentista = "Dra. Marina Molar", DsCro = "CR986422", DsEmail = "marina.molar@gmail.com", NrTelefone = "11933255774", DsDocIdentificacao = "93908189000104" },
             new DentistaDtos { NmDentista = "Dr. Ali Vramento", DsCro = "CR098964", DsEmail = "ali.vramento@gmail.com", NrTelefone = "45988552211", DsDocIdentificacao = "75234663000170" },
             new DentistaDtos { NmDentista = "Dra. Aparecida do Sorriso", DsCro = "CRO99001", DsEmail = "aparecida.sorriso@gmail.com", NrTelefone = "84966665786", DsDocIdentificacao = "42526327000141" },
             new DentistaDtos { NmDentista = "Dra. Isa Carie", DsCro = "CR856934", DsEmail = "isa.carie@gmail.com", NrTelefone = "11955863320", DsDocIdentificacao = "07316233000147" },
             new DentistaDtos { NmDentista = "Dra. Clara Mente", DsCro = "CR125863", DsEmail = "clara.mente@gmail.com", NrTelefone = "33945633251", DsDocIdentificacao = "36816900000159" },
-            new DentistaDtos { NmDentista = "Dr. Cl·udio Gengiva", DsCro = "CRO88990", DsEmail = "claudio.gengiva@gmail.com", NrTelefone = "27337558861", DsDocIdentificacao = "46805824000130" },
+            new DentistaDtos { NmDentista = "Dr. Cl√°udio Gengiva", DsCro = "CRO88990", DsEmail = "claudio.gengiva@gmail.com", NrTelefone = "27337558861", DsDocIdentificacao = "46805824000130" },
             new DentistaDtos { NmDentista = "Dra. Sonia Brilho", DsCro = "CR203587", DsEmail = "sonia.brilho@gmail.com", NrTelefone = "63977523258", DsDocIdentificacao = "50241419000103" }
         };
 
@@ -38,14 +38,14 @@ namespace OdontoPrevAPI.Tools
         {
             new PacienteDtos 
             { 
-                NmPaciente = "Beto Mal H·lito", 
+                NmPaciente = "Beto Mal H√°lito", 
                 DtNascimento = DateTime.Parse("1990-02-06"), 
                 NrCpf = "09317440088", 
                 DsSexo = "M", 
                 NrTelefone = "27965563215", 
                 DsEmail = "beto.halito@gmail.com", 
                 IdPlano = 1,
-                Plano = new Models.Plano { DsCodigoPlano = "ODP001", NmPlano = "B·sico" }
+                Plano = new Models.Plano { DsCodigoPlano = "ODP001", NmPlano = "B√°sico" }
             },
             new PacienteDtos 
             { 
@@ -56,7 +56,7 @@ namespace OdontoPrevAPI.Tools
                 NrTelefone = "11975853524", 
                 DsEmail = "branca.dente@gmail.com", 
                 IdPlano = 2,
-                Plano = new Models.Plano { DsCodigoPlano = "ODP002", NmPlano = "Intermedi·rio" }
+                Plano = new Models.Plano { DsCodigoPlano = "ODP002", NmPlano = "Intermedi√°rio" }
             },
             new PacienteDtos 
             { 
@@ -71,7 +71,7 @@ namespace OdontoPrevAPI.Tools
             },
             new PacienteDtos 
             { 
-                NmPaciente = "Jo„o T·rtaro", 
+                NmPaciente = "Jo√£o T√°rtaro", 
                 DtNascimento = DateTime.Parse("1992-02-06"), 
                 NrCpf = "12724268075", 
                 DsSexo = "M", 
@@ -150,100 +150,100 @@ namespace OdontoPrevAPI.Tools
 
         public static List<PerguntasDtos> ListaPerguntas = new()
         {
-            new PerguntasDtos { DsPergunta = "VocÍ È fumante?" },
-            new PerguntasDtos { DsPergunta = "VocÍ ja visitou um dentista esse ano?" },
-            new PerguntasDtos { DsPergunta = "VocÍ sente dor ao mastigar?" },
-            new PerguntasDtos { DsPergunta = "VocÍ j· fez limpeza dent·ria esse ano?" },
-            new PerguntasDtos { DsPergunta = "VocÍ j· escovou os dentes hoje?" },
-            new PerguntasDtos { DsPergunta = "VocÍ tem algum problema de gengiva?" },
-            new PerguntasDtos { DsPergunta = "VocÍ ja fez tratamento de canal?" },
-            new PerguntasDtos { DsPergunta = "VocÍ usa fio dental regularmente?" },
-            new PerguntasDtos { DsPergunta = "VocÍ j· extraiu algum dente?" },
-            new PerguntasDtos { DsPergunta = "VocÍ masca chicletes com frequÍncia?" }
+            "Voc√™ √© fumante?",
+            "Voc√™ ja visitou um dentista esse ano?",
+            "Voc√™ sente dor ao mastigar?",
+            "Voc√™ j√° fez limpeza dent√°ria esse ano?",
+            "Voc√™ j√° escovou os dentes hoje?",
+            "Voc√™ tem algum problema de gengiva?",
+            "Voc√™ ja fez tratamento de canal?",
+            "Voc√™ usa fio dental regularmente?",
+            "Voc√™ j√° extraiu algum dente?",
+            "Voc√™ masca chicletes com frequ√™ncia?"
         };
 
-        public static List<(string Data, int Pontos, string Descricao, string Cpf)> ListaExtratoPontos = new()
+        public static List<(string Data, int Pontos, string Descricao, int IdPaciente)> ListaExtratoPontos = new()
         {
-            ("25/05/2022", 100, "Respondeu a pergunta", ListaPacientes[1].NrCpf),
-            ("13/12/2019", 150, "Resgatou pontos", ListaPacientes[1].NrCpf),
-            ("05/05/2024", 200, "Respondeu a pergunta", ListaPacientes[1].NrCpf),
-            ("03/02/2024", 250, "Enviou Raio X", ListaPacientes[1].NrCpf),
-            ("09/07/2022", 300, "Fez uma limpeza", ListaPacientes[1].NrCpf),
-            ("28/04/2021", 350, "Fez uma avaliaÁ„o", ListaPacientes[1].NrCpf),
-            ("07/07/2023", 400, "Resgatou pontos", ListaPacientes[1].NrCpf),
-            ("19/11/2023", 450, "Respondeu a pergunta", ListaPacientes[1].NrCpf),
-            ("27/06/2022", 500, "Fez uma limpeza", ListaPacientes[1].NrCpf),
-            ("22/07/2020", 550, "Enviou Raio X", ListaPacientes[1].NrCpf)
+            ("25/05/2022", 100, "Respondeu a pergunta", 2),
+            ("13/12/2019", 150, "Resgatou pontos", 2),
+            ("05/05/2024", 200, "Respondeu a pergunta", 2),
+            ("03/02/2024", 250, "Enviou Raio X", 2),
+            ("09/07/2022", 300, "Fez uma limpeza", 2),
+            ("28/04/2021", 350, "Fez uma avalia√ß√£o", 2),
+            ("07/07/2023", 400, "Resgatou pontos", 2),
+            ("19/11/2023", 450, "Respondeu a pergunta", 2),
+            ("27/06/2022", 500, "Fez uma limpeza", 2),
+            ("22/07/2020", 550, "Enviou Raio X", 2)
         };
 
         public static List<string> Respostas = new()
         {
             "Sim",
-            "N„o",
+            "N√£o",
             "Sim",
             "Sim",
-            "N„o",
+            "N√£o",
             "Sim",
-            "N„o",
+            "N√£o",
             "Sim",
-            "N„o",
+            "N√£o",
             "Sim"
         };
 
-        public static List<(string Data, string Cpf, int IdPergunta, int IdResposta)> CheckIn = new()
+        public static List<(string Data, int IdPaciente, int IdPergunta, int IdResposta)> CheckIn = new()
         {
-            ("02/02/2024", ListaPacientes[2].NrCpf, 1, 1),
-            ("02/02/2024", ListaPacientes[2].NrCpf, 2, 2),
-            ("02/02/2024", ListaPacientes[2].NrCpf, 3, 3),
-            ("02/02/2024", ListaPacientes[2].NrCpf, 4, 4),
-            ("02/02/2024", ListaPacientes[2].NrCpf, 5, 5),
-            ("02/02/2024", ListaPacientes[2].NrCpf, 6, 6),
-            ("02/02/2024", ListaPacientes[2].NrCpf, 7, 7),
-            ("02/02/2024", ListaPacientes[2].NrCpf, 8, 8),
-            ("02/02/2024", ListaPacientes[2].NrCpf, 9, 9),
-            ("02/02/2024", ListaPacientes[2].NrCpf, 10, 10)
+            ("02/02/2024", 3, 1, 1),
+            ("02/02/2024", 3, 2, 2),
+            ("02/02/2024", 3, 3, 3),
+            ("02/02/2024", 3, 4, 4),
+            ("02/02/2024", 3, 5, 5),
+            ("02/02/2024", 3, 6, 6),
+            ("02/02/2024", 3, 7, 7),
+            ("02/02/2024", 3, 8, 8),
+            ("02/02/2024", 3, 9, 9),
+            ("02/02/2024", 3, 10, 10)
         };
 
-        public static List<(string Descricao, byte[] Imagem, string Data, string Cpf)> ListaRaioX = new()
+        public static List<(string Descricao, byte[] Imagem, string Data, int IdPaciente)> ListaRaioX = new()
         {
-            ("Raio_x do siso", null, "02/01/2024", ListaPacientes[0].NrCpf),
-            ("Raio_x do molar", null, "05/02/2024", ListaPacientes[1].NrCpf),
-            ("Raio_x do prÈ-molar", null, "08/03/2024", ListaPacientes[2].NrCpf),
-            ("Raio_x do canino", null, "11/04/2024", ListaPacientes[3].NrCpf),
-            ("Raio_x panor‚mico", null, "15/05/2024", ListaPacientes[4].NrCpf),
-            ("Raio_x da mandÌbula", null, "19/06/2024", ListaPacientes[5].NrCpf),
-            ("Raio_x do maxilar", null, "23/07/2024", ListaPacientes[6].NrCpf),
-            ("Raio_x do incisivo", null, "28/08/2024", ListaPacientes[7].NrCpf),
-            ("Raio_x do canino", null, "02/09/2024", ListaPacientes[8].NrCpf),
-            ("Raio_x do molar", null, "06/10/2024", ListaPacientes[9].NrCpf)
+            ("Raio_x do siso", null, "02/01/2024", 1),
+            ("Raio_x do molar", null, "05/02/2024", 2),
+            ("Raio_x do pr√©-molar", null, "08/03/2024", 3),
+            ("Raio_x do canino", null, "11/04/2024", 4),
+            ("Raio_x panor√¢mico", null, "15/05/2024", 5),
+            ("Raio_x da mand√≠bula", null, "19/06/2024", 6),
+            ("Raio_x do maxilar", null, "23/07/2024", 7),
+            ("Raio_x do incisivo", null, "28/08/2024", 8),
+            ("Raio_x do canino", null, "02/09/2024", 9),
+            ("Raio_x do molar", null, "06/10/2024", 10)
         };
 
         public static List<(string Descricao, string Data, int IdRaioX)> ListaAnaliseRaioX = new()
         {
-            ("C·ries nos dentes superiores", "05/01/2024", 1),
-            ("InfecÁ„o no dente molar", "10/02/2024", 2),
-            ("Abscesso no prÈ-molar", "15/03/2024", 3),
-            ("Perda Ûssea devido ‡ periodontite", "20/04/2024", 4),
+            ("C√°ries nos dentes superiores", "05/01/2024", 1),
+            ("Infec√ß√£o no dente molar", "10/02/2024", 2),
+            ("Abscesso no pr√©-molar", "15/03/2024", 3),
+            ("Perda √≥ssea devido √† periodontite", "20/04/2024", 4),
             ("Dente impactado no siso inferior", "25/05/2024", 5),
-            ("Les„o Ûssea na mandÌbula", "30/06/2024", 6),
-            ("Fratura dent·ria no incisivo", "05/07/2024", 7),
-            ("Dente supranumer·rio detectado no maxilar superior", "10/08/2024", 8),
-            ("Cisto dent·rio em formaÁ„o ao redor do canino", "15/09/2024", 9),
-            ("C·rie radicular no molar inferior direito", "20/10/2024", 10)
+            ("Les√£o √≥ssea na mand√≠bula", "30/06/2024", 6),
+            ("Fratura dent√°ria no incisivo", "05/07/2024", 7),
+            ("Dente supranumer√°rio detectado no maxilar superior", "10/08/2024", 8),
+            ("Cisto dent√°rio em forma√ß√£o ao redor do canino", "15/09/2024", 9),
+            ("C√°rie radicular no molar inferior direito", "20/10/2024", 10)
         };
 
-        public static List<(string Cpf, string CRO)> ListaPacienteDentista = new()
+        public static List<(int IdPaciente, int IdDentista)> ListaPacienteDentista = new()
         {
-            (ListaPacientes[0].NrCpf,  ListaDentistas[0].DsCro),
-            (ListaPacientes[1].NrCpf,  ListaDentistas[1].DsCro),
-            (ListaPacientes[2].NrCpf,  ListaDentistas[2].DsCro),
-            (ListaPacientes[3].NrCpf,  ListaDentistas[3].DsCro),
-            (ListaPacientes[4].NrCpf,  ListaDentistas[4].DsCro),
-            (ListaPacientes[5].NrCpf,  ListaDentistas[5].DsCro),
-            (ListaPacientes[6].NrCpf,  ListaDentistas[6].DsCro),
-            (ListaPacientes[7].NrCpf,  ListaDentistas[7].DsCro),
-            (ListaPacientes[8].NrCpf,  ListaDentistas[8].DsCro),
-            (ListaPacientes[9].NrCpf,  ListaDentistas[9].DsCro)
+            (1, 1),
+            (2, 2),
+            (3, 3),
+            (4, 4),
+            (5, 5),
+            (6, 6),
+            (7, 7),
+            (8, 8),
+            (9, 9),
+            (10, 10)
         };
     }
 }

@@ -876,6 +876,40 @@
           }
         }
       }
+    },
+    "/api/Teste/populate": {
+      "post": {
+        "tags": [
+          "Teste"
+        ],
+        "summary": "Popula o banco de dados com dados de teste",
+        "description": "Insere todos os dados pré-definidos em DadosDeTestes.",
+        "responses": {
+          "200": {
+            "description": "Dados de teste inseridos com sucesso"
+          },
+          "500": {
+            "description": "Erro interno"
+          }
+        }
+      }
+    },
+    "/api/Teste/clear": {
+      "delete": {
+        "tags": [
+          "Teste"
+        ],
+        "summary": "Limpa o banco de dados",
+        "description": "Remove todas as entidades do banco de dados.",
+        "responses": {
+          "200": {
+            "description": "Banco de dados limpo com sucesso"
+          },
+          "500": {
+            "description": "Erro interno"
+          }
+        }
+      }
     }
   },
   "components": {

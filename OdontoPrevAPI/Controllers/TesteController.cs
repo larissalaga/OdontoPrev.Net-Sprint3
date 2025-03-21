@@ -16,8 +16,8 @@ namespace OdontoPrevAPI.Controllers
     /// <summary>
     /// Controlador para gerenciar dados de teste.
     /// </summary>
-    /*[Route("api/[controller]")]
-    [ApiController]*/
+    [Route("api/[controller]")]
+    [ApiController]
     public class TesteController : ControllerBase
     {
         private readonly IPacienteRepository _pacienteRepository;
@@ -65,11 +65,11 @@ namespace OdontoPrevAPI.Controllers
         /// Insere dados de teste no banco de dados.
         /// </summary>
         /// <returns>Resultado da operação de inserção de dados de teste.</returns>
-        /*[HttpPost("populate")]
+        [HttpPost("populate")]
         [SwaggerOperation(Summary = "Popula o banco de dados com dados de teste", 
             Description = "Insere todos os dados pré-definidos em DadosDeTestes.")]
         [SwaggerResponse(200, "Dados de teste inseridos com sucesso")]
-        [SwaggerResponse(500, "Erro interno")]*/
+        [SwaggerResponse(500, "Erro interno")]
         public async Task<IActionResult> PopulateTestData()
         {
             try
@@ -91,92 +91,7 @@ namespace OdontoPrevAPI.Controllers
                 Dictionary<int, int> perguntasIDs = new Dictionary<int, int>(); // index -> id real
                 Dictionary<int, int> respostasIDs = new Dictionary<int, int>(); // index -> id real
                 Dictionary<int, int> raiosXIDs = new Dictionary<int, int>(); // index -> id real
-
-
-               
-                // Cria as Sequences do banco de dados
-                try
-                {
-                    await _context.Database.ExecuteSqlRawAsync("CREATE SEQUENCE SEQ_T_OPBD_CHECK_IN;");
-                    sequenceInseridas++;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Erro ao adicionar SEQUENCE SEQ_T_OPBD_CHECK_IN");
-                }
-                try
-                {
-                    await _context.Database.ExecuteSqlRawAsync("CREATE SEQUENCE SEQ_T_OPBD_RESPOSTAS;");
-                    sequenceInseridas++;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Erro ao adicionar SEQUENCE SEQ_T_OPBD_RESPOSTAS");                    
-                }
-                try
-                {
-                    await _context.Database.ExecuteSqlRawAsync("CREATE SEQUENCE SEQ_T_OPBD_EXTRATO_PONTOS;");
-                    sequenceInseridas++;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Erro ao adicionar SEQUENCE SEQ_T_OPBD_EXTRATO_PONTOS");                    
-                }
-                try
-                {
-                    await _context.Database.ExecuteSqlRawAsync("CREATE SEQUENCE SEQ_T_OPBD_ANALISE_RAIO_X;");
-                    sequenceInseridas++;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Erro ao adicionar SEQUENCE SEQ_T_OPBD_ANALISE_RAIO_X");                    
-                }
-                try
-                {
-                    await _context.Database.ExecuteSqlRawAsync("CREATE SEQUENCE SEQ_T_OPBD_RAIO_X;");
-                    sequenceInseridas++;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Erro ao adicionar SEQUENCE SEQ_T_OPBD_RAIO_X");                    
-                }
-                try
-                {
-                    await _context.Database.ExecuteSqlRawAsync("CREATE SEQUENCE SEQ_T_OPBD_DENTISTA;");
-                    sequenceInseridas++;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Erro ao adicionar SEQUENCE SEQ_T_OPBD_DENTISTA");                    
-                }
-                try
-                {
-                    await _context.Database.ExecuteSqlRawAsync("CREATE SEQUENCE SEQ_T_OPBD_PERGUNTAS;");
-                    sequenceInseridas++;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Erro ao adicionar SEQUENCE SEQ_T_OPBD_PERGUNTAS");                    
-                }
-                try
-                {
-                    await _context.Database.ExecuteSqlRawAsync("CREATE SEQUENCE SEQ_T_OPBD_PACIENTE;");
-                    sequenceInseridas++;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Erro ao adicionar SEQUENCE SEQ_T_OPBD_PACIENTE");                    
-                }
-                try
-                {
-                    await _context.Database.ExecuteSqlRawAsync("CREATE SEQUENCE SEQ_T_OPBD_PLANO;");
-                    sequenceInseridas++;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Erro ao adicionar SEQUENCE SEQ_T_OPBD_PLANO");                    
-                }
-                
+                                
                 // 1. Insere todos os planos
                 foreach (var plano in DadosDeTestes.ListaPlanos)
                 {
@@ -210,6 +125,8 @@ namespace OdontoPrevAPI.Controllers
                 {
                     try
                     {
+                        var plano = await _planoRepository.GetByDsCodigoPlano(paciente.Plano.DsCodigoPlano);  
+                        paciente.IdPlano = plano.IdPlano;
                         await _pacienteRepository.Create(paciente);
                         pacientesInseridos++;
                     }
@@ -224,7 +141,7 @@ namespace OdontoPrevAPI.Controllers
                 {
                     try
                     {
-                        var perguntaDto = new PerguntasDtos { DsPergunta = DadosDeTestes.ListaPerguntas[i] };
+                        var perguntaDto = new PerguntasDtos { DsPergunta = DadosDeTestes.ListaPerguntas[i].DsPergunta };
                         var novaPergunta = await _perguntasRepository.Create(perguntaDto);
                         perguntasIDs[i] = novaPergunta.IdPergunta;
                         perguntasInseridas++;
@@ -251,24 +168,51 @@ namespace OdontoPrevAPI.Controllers
                     }
                 }
 
-                // 6. Insere todos os extratos de pontos
-                foreach (var (Data, Pontos, Descricao, IdPaciente) in DadosDeTestes.ListaExtratoPontos)
+                // 9. Insere todos os check-ins
+                foreach (var checkin in DadosDeTestes.CheckIn)
                 {
                     try
                     {
+                        // Verifica se temos os IDs reais nos dicionários
+                        int realIdPergunta = checkin.IdPergunta <= perguntasIDs.Count ? perguntasIDs[checkin.IdPergunta - 1] : checkin.IdPergunta;
+                        int realIdResposta = checkin.IdResposta <= respostasIDs.Count ? respostasIDs[checkin.IdResposta - 1] : checkin.IdResposta;
+                        var paciente = await _pacienteRepository.GetByNrCpf(checkin.Cpf);
+
+                        var checkInDto = new CheckInDtos
+                        {
+                            DtCheckIn = DateTime.Parse(checkin.Data),
+                            IdPaciente = paciente.IdPaciente,
+                            IdPergunta = realIdPergunta,
+                            IdResposta = realIdResposta
+                        };
+                        await _checkInRepository.Create(checkInDto);
+                        checkInsInseridos++;
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Erro ao inserir check-in para paciente {checkin.Cpf}: {ex.Message}");
+                    }
+                }
+
+                // 6. Insere todos os extratos de pontos
+                foreach (var (Data, Pontos, Descricao, Cpf) in DadosDeTestes.ListaExtratoPontos)
+                {
+                    try
+                    {
+                        var paciente = await _pacienteRepository.GetByNrCpf(Cpf);
                         var extratoPontosDto = new ExtratoPontosDtos
                         {
                             DtExtrato = DateTime.Parse(Data),
                             NrNumeroPontos = Pontos,
                             DsMovimentacao = Descricao,
-                            IdPaciente = IdPaciente
+                            IdPaciente = paciente.IdPaciente
                         };
                         await _extratoPontosRepository.Create(extratoPontosDto);
                         extratoPontosInseridos++;
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine($"Erro ao inserir extrato de pontos para paciente {IdPaciente}: {ex.Message}");
+                        Console.WriteLine($"Erro ao inserir extrato de pontos para paciente {Cpf}: {ex.Message}");
                     }
                 }
 
@@ -277,13 +221,14 @@ namespace OdontoPrevAPI.Controllers
                 {
                     try
                     {
-                        var (Descricao, Imagem, Data, IdPaciente) = DadosDeTestes.ListaRaioX[i];
+                        var (Descricao, Imagem, Data, Cpf) = DadosDeTestes.ListaRaioX[i];
+                        var paciente = await _pacienteRepository.GetByNrCpf(Cpf);
                         var raioXDto = new RaioXDtos
                         {
                             DsRaioX = Descricao,
-                            ImRaioX = Imagem, // Pode ser null conforme dados de teste
+                            ImRaioX = Imagem, // Pode ser null
                             DtDataRaioX = DateTime.Parse(Data),
-                            IdPaciente = IdPaciente
+                            IdPaciente = paciente.IdPaciente
                         };
                         var novoRaioX = await _raioXRepository.Create(raioXDto);
                         raiosXIDs[i] = novoRaioX.IdRaioX;
@@ -318,42 +263,21 @@ namespace OdontoPrevAPI.Controllers
                     }
                 }
 
-                // 9. Insere todos os check-ins
-                foreach (var (Data, IdPaciente, IdPergunta, IdResposta) in DadosDeTestes.CheckIn)
-                {
-                    try
-                    {
-                        // Verifica se temos os IDs reais nos dicionários
-                        int realIdPergunta = IdPergunta <= perguntasIDs.Count ? perguntasIDs[IdPergunta - 1] : IdPergunta;
-                        int realIdResposta = IdResposta <= respostasIDs.Count ? respostasIDs[IdResposta - 1] : IdResposta;
-                        
-                        var checkInDto = new CheckInDtos
-                        {
-                            DtCheckIn = DateTime.Parse(Data),
-                            IdPaciente = IdPaciente,
-                            IdPergunta = realIdPergunta,
-                            IdResposta = realIdResposta
-                        };
-                        await _checkInRepository.Create(checkInDto);
-                        checkInsInseridos++;
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine($"Erro ao inserir check-in para paciente {IdPaciente}: {ex.Message}");
-                    }
-                }
+               
 
                 // 10. Insere todas as relações Paciente-Dentista
-                foreach (var (IdPaciente, IdDentista) in DadosDeTestes.ListaPacienteDentista)
+                foreach (var (Cpf, CRO) in DadosDeTestes.ListaPacienteDentista)
                 {
                     try
                     {
-                        await _pacienteDentistaRepository.Create(IdDentista, IdPaciente);
+                        var paciente = await _pacienteRepository.GetByNrCpf(Cpf);
+                        var dentista = await _dentistaRepository.GetByDsCro(CRO);
+                        await _pacienteDentistaRepository.Create(dentista.IdDentista, paciente.IdPaciente);
                         pacientesDentistasInseridos++;
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine($"Erro ao inserir relação paciente {IdPaciente} - dentista {IdDentista}: {ex.Message}");
+                        Console.WriteLine($"Erro ao inserir relação paciente {Cpf} - dentista {CRO}: {ex.Message}");
                     }
                 }
 
@@ -386,11 +310,11 @@ namespace OdontoPrevAPI.Controllers
         /// Limpa todos os dados do banco de dados.
         /// </summary>
         /// <returns>Resultado da operação de limpeza do banco de dados.</returns>
-        /*[HttpDelete("clear")]
+        [HttpDelete("clear")]
         [SwaggerOperation(Summary = "Limpa o banco de dados", 
             Description = "Remove todas as entidades do banco de dados.")]
         [SwaggerResponse(200, "Banco de dados limpo com sucesso")]
-        [SwaggerResponse(500, "Erro interno")]*/
+        [SwaggerResponse(500, "Erro interno")]
         public async Task<IActionResult> ClearDatabase()
         {
             try
@@ -561,99 +485,7 @@ namespace OdontoPrevAPI.Controllers
                         Console.WriteLine($"Erro ao remover plano ID {plano.IdPlano}: {ex.Message}");
                     }
                 }
-
-                // Remove as Sequences do banco de dados
-                var sequencesRemovidas = 0;
-                try
-                {
-                    await _context.Database.ExecuteSqlRawAsync("DROP SEQUENCE SEQ_T_OPBD_CHECK_IN;");
-                    sequencesRemovidas++;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Erro ao remover SEQUENCE SEQ_T_OPBD_CHECK_IN");
-                }
-                try
-                {
-                    await _context.Database.ExecuteSqlRawAsync("DROP SEQUENCE SEQ_T_OPBD_RESPOSTAS;");
-                    sequencesRemovidas++;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Erro ao remover SEQUENCE SEQ_T_OPBD_RESPOSTAS");
-                    sequencesRemovidas++;
-                }
-                try
-                {
-                    await _context.Database.ExecuteSqlRawAsync("DROP SEQUENCE SEQ_T_OPBD_EXTRATO_PONTOS;");
-                    sequencesRemovidas++;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Erro ao remover SEQUENCE SEQ_T_OPBD_EXTRATO_PONTOS");
-                    sequencesRemovidas++;
-                }
-                try
-                {
-                    await _context.Database.ExecuteSqlRawAsync("DROP SEQUENCE SEQ_T_OPBD_ANALISE_RAIO_X;");
-                    sequencesRemovidas++;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Erro ao remover SEQUENCE SEQ_T_OPBD_ANALISE_RAIO_X");
-                    sequencesRemovidas++;
-                }
-                try
-                {
-                    await _context.Database.ExecuteSqlRawAsync("DROP SEQUENCE SEQ_T_OPBD_RAIO_X;");
-                    sequencesRemovidas++;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Erro ao remover SEQUENCE SEQ_T_OPBD_RAIO_X");
-                    sequencesRemovidas++;
-                }
-                try
-                {
-                    await _context.Database.ExecuteSqlRawAsync("DROP SEQUENCE SEQ_T_OPBD_DENTISTA;");
-                    sequencesRemovidas++;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Erro ao remover SEQUENCE SEQ_T_OPBD_DENTISTA");
-                    sequencesRemovidas++;
-                }
-                try
-                {
-                    await _context.Database.ExecuteSqlRawAsync("DROP SEQUENCE SEQ_T_OPBD_PERGUNTAS;");
-                    sequencesRemovidas++;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Erro ao remover SEQUENCE SEQ_T_OPBD_PERGUNTAS");
-                    sequencesRemovidas++;
-                }
-                try
-                {
-                    await _context.Database.ExecuteSqlRawAsync("DROP SEQUENCE SEQ_T_OPBD_PACIENTE;");
-                    sequencesRemovidas++;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Erro ao remover SEQUENCE SEQ_T_OPBD_PACIENTE");
-                    sequencesRemovidas++;
-                }
-                try
-                {
-                    await _context.Database.ExecuteSqlRawAsync("DROP SEQUENCE SEQ_T_OPBD_PLANO;");
-                    sequencesRemovidas++;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Erro ao remover SEQUENCE SEQ_T_OPBD_PLANO");
-                    sequencesRemovidas++;
-                }
-
+                
                 await _context.SaveChangesAsync();
 
                 // Retorna um resumo das remoções
@@ -671,8 +503,7 @@ namespace OdontoPrevAPI.Controllers
                         dentistas = $"{dentistasRemovidos} dentistas removidos",
                         perguntas = $"{perguntasRemovidas} perguntas removidas",
                         respostas = $"{respostasRemovidas} respostas removidas",
-                        planos = $"{planosRemovidos} planos removidos",
-                        sequences = $"{sequencesRemovidas} sequences removidos"
+                        planos = $"{planosRemovidos} planos removidos"                        
                     }
                 });
             }

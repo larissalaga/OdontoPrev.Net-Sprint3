@@ -130,7 +130,7 @@ namespace OdontoPrevAPI.Controllers
             var dsSexo = string.IsNullOrEmpty(pacienteDto.DsSexo) ? existingPaciente.DsSexo : pacienteDto.DsSexo;
             var plano = new Models.Plano();
             var idPlano = existingPaciente.IdPlano;
-            if (pacienteDto.DsCodigoPlano != null)
+            if (!string.IsNullOrEmpty(pacienteDto.DsCodigoPlano))
             {
                 plano = await _planoRepository.GetByDsCodigoPlano(pacienteDto.DsCodigoPlano);
                 if (plano == null)
@@ -192,7 +192,7 @@ namespace OdontoPrevAPI.Controllers
             var dsSexo = string.IsNullOrEmpty(pacienteDto.DsSexo) ? existingPaciente.DsSexo : pacienteDto.DsSexo;
             var idPlano = pacienteDto.IdPlano == null ? existingPaciente.IdPlano : pacienteDto.IdPlano.Value;
             var plano = new Models.Plano();
-            if (pacienteDto.DsCodigoPlano != null)
+            if (!string.IsNullOrEmpty(pacienteDto.DsCodigoPlano))
             {
                 plano = await _planoRepository.GetByDsCodigoPlano(pacienteDto.DsCodigoPlano);
                 if (plano == null)
@@ -200,7 +200,12 @@ namespace OdontoPrevAPI.Controllers
                     return NotFound("Plano não encontrado");
                 }
                 idPlano = plano.IdPlano;
+            } 
+            else
+            {
+                plano = await _planoRepository.GetById(idPlano);
             }
+
 
             var updatedPacienteDto = new PacienteDtos
             {
@@ -214,7 +219,7 @@ namespace OdontoPrevAPI.Controllers
                 Plano = plano
             };
 
-            var updatedPaciente = await _pacienteRepository.UpdateByCPF(cpf, updatedPacienteDto);
+            var updatedPaciente = await _pacienteRepository.UpdateByCPF(cpf, updatedPacienteDto);            
             return Ok(updatedPaciente);
         }
 

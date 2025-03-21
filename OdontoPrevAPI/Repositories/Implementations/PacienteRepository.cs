@@ -36,7 +36,7 @@ namespace OdontoPrevAPI.Repositories.Implementations
                             {paciente.DsSexo},
                             {paciente.NrTelefone},
                             {paciente.DsEmail},
-                            {paciente.Plano?.DsCodigoPlano}
+                            {paciente.IdPlano}
                         );
                     END;
                 ");

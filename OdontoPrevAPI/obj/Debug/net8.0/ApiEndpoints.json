@@ -782,5 +782,47 @@
         "StatusCode": 500
       }
     ]
+  },
+  {
+    "ContainingType": "OdontoPrevAPI.Controllers.TesteController",
+    "Method": "ClearDatabase",
+    "RelativePath": "api/Teste/clear",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
+      }
+    ]
+  },
+  {
+    "ContainingType": "OdontoPrevAPI.Controllers.TesteController",
+    "Method": "PopulateTestData",
+    "RelativePath": "api/Teste/populate",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
+      }
+    ]
   }
 ]
