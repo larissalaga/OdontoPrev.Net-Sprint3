@@ -1,0 +1,1115 @@
+{
+  "openapi": "3.0.4",
+  "info": {
+    "title": "OdontoPrevAPI",
+    "version": "1.0"
+  },
+  "paths": {
+    "/api/Dentista/all": {
+      "get": {
+        "tags": [
+          "Dentista"
+        ],
+        "summary": "Obtém todas as entidades Dentista",
+        "description": "Retorna uma lista de todas as entidades Dentista.",
+        "responses": {
+          "200": {
+            "description": "Retorna a lista de entidades Dentista"
+          },
+          "500": {
+            "description": "Nenhum dentista encontrado"
+          }
+        }
+      }
+    },
+    "/api/Dentista/cro/{dsCro}": {
+      "get": {
+        "tags": [
+          "Dentista"
+        ],
+        "summary": "Obtém uma entidade Dentista pelo CRO",
+        "description": "Retorna uma entidade Dentista pelo seu CRO.",
+        "parameters": [
+          {
+            "name": "dsCro",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retorna a entidade Dentista"
+          },
+          "500": {
+            "description": "Dentista não encontrado"
+          }
+        }
+      }
+    },
+    "/api/Dentista/id/{id}": {
+      "get": {
+        "tags": [
+          "Dentista"
+        ],
+        "summary": "Obtém uma entidade Dentista pelo ID",
+        "description": "Retorna uma entidade Dentista pelo seu ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retorna a entidade Dentista"
+          },
+          "500": {
+            "description": "Dentista não encontrado"
+          }
+        }
+      }
+    },
+    "/api/Dentista/new": {
+      "post": {
+        "tags": [
+          "Dentista"
+        ],
+        "summary": "Cria uma nova entidade Dentista",
+        "description": "Cria uma nova entidade Dentista.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DentistaDtos"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DentistaDtos"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/DentistaDtos"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Dentista criado com sucesso"
+          },
+          "500": {
+            "description": "Entrada inválida ou erro interno"
+          }
+        }
+      }
+    },
+    "/api/Dentista/update/id/{id}": {
+      "put": {
+        "tags": [
+          "Dentista"
+        ],
+        "summary": "Atualiza uma entidade Dentista pelo ID",
+        "description": "Atualiza uma entidade Dentista pelo seu ID utilizando Entity Framework.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DentistaUpdateDtos"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DentistaUpdateDtos"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/DentistaUpdateDtos"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Dentista atualizado com sucesso"
+          },
+          "404": {
+            "description": "Dentista não encontrado"
+          },
+          "500": {
+            "description": "Erro interno"
+          }
+        }
+      }
+    },
+    "/api/Dentista/update/cro/{dsCro}": {
+      "put": {
+        "tags": [
+          "Dentista"
+        ],
+        "summary": "Atualiza uma entidade Dentista pelo CRO",
+        "description": "Atualiza uma entidade Dentista pelo seu CRO.",
+        "parameters": [
+          {
+            "name": "dsCro",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DentistaUpdateDtos"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DentistaUpdateDtos"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/DentistaUpdateDtos"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Dentista atualizado com sucesso"
+          },
+          "404": {
+            "description": "Dentista não encontrado"
+          },
+          "500": {
+            "description": "Erro interno"
+          }
+        }
+      }
+    },
+    "/api/Dentista/delete/id/{id}": {
+      "delete": {
+        "tags": [
+          "Dentista"
+        ],
+        "summary": "Deleta uma entidade Dentista pelo ID",
+        "description": "Deleta uma entidade Dentista pelo seu ID utilizando Entity Framework.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Dentista deletado com sucesso"
+          },
+          "404": {
+            "description": "Dentista não encontrado"
+          },
+          "500": {
+            "description": "Erro interno"
+          }
+        }
+      }
+    },
+    "/api/Dentista/delete/cro/{dsCro}": {
+      "delete": {
+        "tags": [
+          "Dentista"
+        ],
+        "summary": "Deleta uma entidade Dentista pelo CRO",
+        "description": "Deleta uma entidade Dentista pelo seu CRO.",
+        "parameters": [
+          {
+            "name": "dsCro",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Dentista deletado com sucesso"
+          },
+          "404": {
+            "description": "Dentista não encontrado"
+          },
+          "500": {
+            "description": "Erro interno"
+          }
+        }
+      }
+    },
+    "/api/Paciente/all": {
+      "get": {
+        "tags": [
+          "Paciente"
+        ],
+        "summary": "Obtém todas as entidades Paciente",
+        "description": "Retorna uma lista de todas as entidades Paciente.",
+        "responses": {
+          "200": {
+            "description": "Retorna a lista de entidades Paciente"
+          },
+          "500": {
+            "description": "Nenhum paciente encontrado"
+          }
+        }
+      }
+    },
+    "/api/Paciente/cpf/{nrCpf}": {
+      "get": {
+        "tags": [
+          "Paciente"
+        ],
+        "summary": "Obtém uma entidade Paciente pelo CPF",
+        "description": "Retorna uma entidade Paciente pelo seu CPF.",
+        "parameters": [
+          {
+            "name": "nrCpf",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retorna a entidade Paciente"
+          },
+          "500": {
+            "description": "Paciente não encontrado"
+          }
+        }
+      }
+    },
+    "/api/Paciente/id/{id}": {
+      "get": {
+        "tags": [
+          "Paciente"
+        ],
+        "summary": "Obtém uma entidade Paciente pelo ID",
+        "description": "Retorna uma entidade Paciente pelo seu ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retorna a entidade Paciente"
+          },
+          "500": {
+            "description": "Paciente não encontrado"
+          }
+        }
+      }
+    },
+    "/api/Paciente/new": {
+      "post": {
+        "tags": [
+          "Paciente"
+        ],
+        "summary": "Cria uma nova entidade Paciente",
+        "description": "Cria uma nova entidade Paciente.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PacienteDtos"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PacienteDtos"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PacienteDtos"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Paciente criado com sucesso"
+          },
+          "500": {
+            "description": "Entrada inválida ou erro interno"
+          }
+        }
+      }
+    },
+    "/api/Paciente/update/id/{id}": {
+      "put": {
+        "tags": [
+          "Paciente"
+        ],
+        "summary": "Atualiza uma entidade Paciente pelo ID",
+        "description": "Atualiza uma entidade Paciente pelo seu ID. Preencher somente o que for necessário alterar",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PacienteUpdateDtos"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PacienteUpdateDtos"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PacienteUpdateDtos"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Paciente atualizado com sucesso"
+          },
+          "500": {
+            "description": "Erro interno"
+          }
+        }
+      }
+    },
+    "/api/Paciente/update/cpf/{cpf}": {
+      "put": {
+        "tags": [
+          "Paciente"
+        ],
+        "summary": "Atualiza uma entidade Paciente pelo CPF",
+        "description": "Atualiza uma entidade Paciente pelo seu CPF. Preencher somente o que for necessário alterar",
+        "parameters": [
+          {
+            "name": "cpf",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PacienteUpdateDtos"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PacienteUpdateDtos"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PacienteUpdateDtos"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Paciente atualizado com sucesso"
+          },
+          "500": {
+            "description": "Erro interno"
+          }
+        }
+      }
+    },
+    "/api/Paciente/delete/id/{id}": {
+      "delete": {
+        "tags": [
+          "Paciente"
+        ],
+        "summary": "Deleta uma entidade Paciente pelo ID",
+        "description": "Deleta uma entidade Paciente pelo seu ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Paciente deletado com sucesso"
+          },
+          "404": {
+            "description": "Paciente não encontrado"
+          },
+          "500": {
+            "description": "Erro interno"
+          }
+        }
+      }
+    },
+    "/api/Paciente/delete/cpf/{nrCpf}": {
+      "delete": {
+        "tags": [
+          "Paciente"
+        ],
+        "summary": "Deleta uma entidade Paciente pelo CPF",
+        "description": "Deleta uma entidade Paciente pelo seu CPF.",
+        "parameters": [
+          {
+            "name": "nrCpf",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Paciente deletado com sucesso"
+          },
+          "404": {
+            "description": "Paciente não encontrado"
+          },
+          "500": {
+            "description": "Erro interno"
+          }
+        }
+      }
+    },
+    "/api/PacienteDentista/new": {
+      "post": {
+        "tags": [
+          "PacienteDentista"
+        ],
+        "summary": "Cria uma nova relação Paciente-Dentista",
+        "description": "Cria uma nova relação entre um Paciente e um Dentista utilizando seus IDs.",
+        "parameters": [
+          {
+            "name": "idDentista",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "idPaciente",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Relação Paciente-Dentista criada com sucesso"
+          },
+          "400": {
+            "description": "IDs inválidos"
+          },
+          "500": {
+            "description": "Erro interno"
+          }
+        }
+      }
+    },
+    "/api/PacienteDentista/delete": {
+      "delete": {
+        "tags": [
+          "PacienteDentista"
+        ],
+        "summary": "Deleta uma relação Paciente-Dentista",
+        "description": "Deleta uma relação entre um Paciente e um Dentista utilizando CRO e CPF.",
+        "parameters": [
+          {
+            "name": "dsCro",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "nrCpf",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Relação Paciente-Dentista deletada com sucesso"
+          },
+          "404": {
+            "description": "Relação não encontrada"
+          },
+          "500": {
+            "description": "Erro interno"
+          }
+        }
+      }
+    },
+    "/api/Plano/all": {
+      "get": {
+        "tags": [
+          "Plano"
+        ],
+        "summary": "Obtém todas as entidades Plano",
+        "description": "Retorna uma lista de todas as entidades Plano.",
+        "responses": {
+          "200": {
+            "description": "Retorna a lista de entidades Plano"
+          },
+          "500": {
+            "description": "Nenhum plano encontrado"
+          }
+        }
+      }
+    },
+    "/api/Plano/codigo/{dsCodigoPlano}": {
+      "get": {
+        "tags": [
+          "Plano"
+        ],
+        "summary": "Obtém uma entidade Plano pelo código",
+        "description": "Retorna uma entidade Plano pelo seu código.",
+        "parameters": [
+          {
+            "name": "dsCodigoPlano",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retorna a entidade Plano"
+          },
+          "500": {
+            "description": "Plano não encontrado"
+          }
+        }
+      }
+    },
+    "/api/Plano/id/{id}": {
+      "get": {
+        "tags": [
+          "Plano"
+        ],
+        "summary": "Obtém uma entidade Plano pelo ID",
+        "description": "Retorna uma entidade Plano pelo seu ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retorna a entidade Plano"
+          },
+          "500": {
+            "description": "Plano não encontrado"
+          }
+        }
+      }
+    },
+    "/api/Plano/new": {
+      "post": {
+        "tags": [
+          "Plano"
+        ],
+        "summary": "Cria uma nova entidade Plano",
+        "description": "Cria uma nova entidade Plano.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PlanoDtos"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PlanoDtos"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PlanoDtos"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Plano criado com sucesso"
+          },
+          "500": {
+            "description": "Entrada inválida ou erro interno"
+          }
+        }
+      }
+    },
+    "/api/Plano/update/id/{id}": {
+      "put": {
+        "tags": [
+          "Plano"
+        ],
+        "summary": "Atualiza uma entidade Plano pelo ID",
+        "description": "Atualiza uma entidade Plano pelo seu ID usando Entity Framework.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PlanoUpdateDtos"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PlanoUpdateDtos"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PlanoUpdateDtos"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Plano atualizado com sucesso"
+          },
+          "404": {
+            "description": "Plano não encontrado"
+          },
+          "500": {
+            "description": "Erro interno"
+          }
+        }
+      }
+    },
+    "/api/Plano/update/codigo/{dsCodigoPlano}": {
+      "put": {
+        "tags": [
+          "Plano"
+        ],
+        "summary": "Atualiza uma entidade Plano pelo código",
+        "description": "Atualiza uma entidade Plano pelo seu código usando o procedimento UPDATE_PLANO do Oracle.",
+        "parameters": [
+          {
+            "name": "dsCodigoPlano",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PlanoUpdateDtos"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PlanoUpdateDtos"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PlanoUpdateDtos"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Plano atualizado com sucesso"
+          },
+          "404": {
+            "description": "Plano não encontrado"
+          },
+          "500": {
+            "description": "Erro interno"
+          }
+        }
+      }
+    },
+    "/api/Plano/delete/id/{id}": {
+      "delete": {
+        "tags": [
+          "Plano"
+        ],
+        "summary": "Deleta uma entidade Plano pelo ID",
+        "description": "Deleta uma entidade Plano pelo seu ID utilizando Entity Framework.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Plano deletado com sucesso"
+          },
+          "404": {
+            "description": "Plano não encontrado"
+          },
+          "500": {
+            "description": "Erro interno"
+          }
+        }
+      }
+    },
+    "/api/Plano/delete/codigo/{dsCodigoPlano}": {
+      "delete": {
+        "tags": [
+          "Plano"
+        ],
+        "summary": "Deleta uma entidade Plano pelo código",
+        "description": "Deleta uma entidade Plano pelo seu código utilizando o procedimento DELETE_PLANO do Oracle.",
+        "parameters": [
+          {
+            "name": "dsCodigoPlano",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Plano deletado com sucesso"
+          },
+          "404": {
+            "description": "Plano não encontrado"
+          },
+          "500": {
+            "description": "Erro interno"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "DentistaDtos": {
+        "required": [
+          "dsCro",
+          "dsDocIdentificacao",
+          "dsEmail",
+          "nmDentista",
+          "nrTelefone"
+        ],
+        "type": "object",
+        "properties": {
+          "nmDentista": {
+            "maxLength": 100,
+            "minLength": 1,
+            "type": "string"
+          },
+          "dsCro": {
+            "maxLength": 20,
+            "minLength": 1,
+            "type": "string"
+          },
+          "dsEmail": {
+            "maxLength": 70,
+            "minLength": 1,
+            "type": "string",
+            "format": "email"
+          },
+          "nrTelefone": {
+            "maxLength": 30,
+            "minLength": 1,
+            "type": "string"
+          },
+          "dsDocIdentificacao": {
+            "maxLength": 14,
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "DentistaUpdateDtos": {
+        "type": "object",
+        "properties": {
+          "nmDentista": {
+            "maxLength": 100,
+            "type": "string",
+            "nullable": true
+          },
+          "dsCro": {
+            "maxLength": 20,
+            "type": "string",
+            "nullable": true
+          },
+          "dsEmail": {
+            "maxLength": 70,
+            "type": "string",
+            "nullable": true
+          },
+          "nrTelefone": {
+            "maxLength": 30,
+            "type": "string",
+            "nullable": true
+          },
+          "dsDocIdentificacao": {
+            "maxLength": 20,
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PacienteDtos": {
+        "required": [
+          "dsEmail",
+          "dsSexo",
+          "dtNascimento",
+          "idPlano",
+          "nmPaciente",
+          "nrCpf",
+          "nrTelefone"
+        ],
+        "type": "object",
+        "properties": {
+          "nmPaciente": {
+            "maxLength": 100,
+            "minLength": 1,
+            "type": "string"
+          },
+          "dtNascimento": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "nrCpf": {
+            "maxLength": 11,
+            "minLength": 1,
+            "type": "string"
+          },
+          "dsSexo": {
+            "maxLength": 1,
+            "minLength": 1,
+            "type": "string"
+          },
+          "nrTelefone": {
+            "maxLength": 30,
+            "minLength": 1,
+            "type": "string"
+          },
+          "dsEmail": {
+            "maxLength": 70,
+            "minLength": 1,
+            "type": "string",
+            "format": "email"
+          },
+          "idPlano": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "plano": {
+            "$ref": "#/components/schemas/Plano"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PacienteUpdateDtos": {
+        "type": "object",
+        "properties": {
+          "nmPaciente": {
+            "maxLength": 100,
+            "type": "string",
+            "nullable": true
+          },
+          "dtNascimento": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "nrCpf": {
+            "maxLength": 30,
+            "type": "string",
+            "nullable": true
+          },
+          "dsSexo": {
+            "maxLength": 1,
+            "type": "string",
+            "nullable": true
+          },
+          "nrTelefone": {
+            "maxLength": 30,
+            "type": "string",
+            "nullable": true
+          },
+          "dsEmail": {
+            "maxLength": 70,
+            "type": "string",
+            "format": "email",
+            "nullable": true
+          },
+          "idPlano": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "dsCodigoPlano": {
+            "maxLength": 15,
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Plano": {
+        "required": [
+          "dsCodigoPlano",
+          "idPlano",
+          "nmPlano"
+        ],
+        "type": "object",
+        "properties": {
+          "idPlano": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "dsCodigoPlano": {
+            "maxLength": 15,
+            "minLength": 1,
+            "type": "string"
+          },
+          "nmPlano": {
+            "maxLength": 60,
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PlanoDtos": {
+        "required": [
+          "dsCodigoPlano",
+          "nmPlano"
+        ],
+        "type": "object",
+        "properties": {
+          "dsCodigoPlano": {
+            "maxLength": 15,
+            "minLength": 1,
+            "type": "string"
+          },
+          "nmPlano": {
+            "maxLength": 60,
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PlanoUpdateDtos": {
+        "type": "object",
+        "properties": {
+          "dsCodigoPlano": {
+            "maxLength": 15,
+            "type": "string",
+            "nullable": true
+          },
+          "nmPlano": {
+            "maxLength": 60,
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}

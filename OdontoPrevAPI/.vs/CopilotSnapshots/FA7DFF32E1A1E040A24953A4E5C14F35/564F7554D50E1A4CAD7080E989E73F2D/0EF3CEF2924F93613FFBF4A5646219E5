@@ -1,0 +1,96 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using OdontoPrevAPI.Dtos;
+using OdontoPrevAPI.Repositories.Interfaces;
+using System.Threading.Tasks;
+using Swashbuckle.AspNetCore.Annotations;
+
+namespace OdontoPrevAPI.Controllers
+{
+    /// <summary>
+    /// Controller for managing Paciente entities.
+    /// </summary>
+    [Route("api/[controller]")]
+    [ApiController]
+    public class PacienteController : ControllerBase
+    {
+        private readonly IPacienteRepository _pacienteRepository;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PacienteController"/> class.
+        /// </summary>
+        /// <param name="pacienteRepository">The repository for Paciente entities.</param>
+        public PacienteController(IPacienteRepository pacienteRepository)
+        {
+            _pacienteRepository = pacienteRepository;
+        }
+
+        /// <summary>
+        /// Gets all Paciente entities.
+        /// </summary>
+        /// <returns>A list of Paciente entities.</returns>
+        [HttpGet("all")]
+        [SwaggerOperation(Summary = "Gets all Paciente entities", Description = "Returns a list of all Paciente entities.")]
+        [SwaggerResponse(200, "Returns the list of Paciente entities")]
+        [SwaggerResponse(500, "Paciente not found")]
+        public async Task<IActionResult> GetAllPacientes()
+        {
+            var pacientes = await _pacienteRepository.GetAll();
+            return Ok(pacientes);
+        }
+
+        /// <summary>
+        /// Gets a Paciente entity by CPF.
+        /// </summary>
+        /// <param name="nrCpf">The CPF of the Paciente.</param>
+        /// <returns>The Paciente entity.</returns>
+        [HttpGet("cpf/{nrCpf}")]
+        [SwaggerOperation(Summary = "Gets a Paciente entity by CPF", Description = "Returns a Paciente entity by its CPF.")]
+        [SwaggerResponse(200, "Returns the Paciente entity")]
+        [SwaggerResponse(500, "Paciente not found")]
+        public async Task<IActionResult> GetPacienteByCpf(string nrCpf)
+        {
+            // Remove special characters from CPF
+            var sanitizedCpf = System.Text.RegularExpressions.Regex.Replace(nrCpf, "[^0-9]", "");
+            var paciente = await _pacienteRepository.GetByNrCpf(sanitizedCpf);
+            return Ok(paciente);
+        }
+
+        /// <summary>
+        /// Gets a Paciente entity by ID.
+        /// </summary>
+        /// <param name="id">The ID of the Paciente.</param>
+        /// <returns>The Paciente entity.</returns>
+        [HttpGet("id/{id}")]
+        [SwaggerOperation(Summary = "Gets a Paciente entity by ID", Description = "Returns a Paciente entity by its ID.")]
+        [SwaggerResponse(200, "Returns the Paciente entity")]
+        [SwaggerResponse(500, "Paciente not found")]
+        public async Task<IActionResult> GetPacienteById(int id)
+        {
+            var paciente = await _pacienteRepository.GetById(id);
+            return Ok(paciente);
+        }
+
+        /// <summary>
+        /// Creates a new Paciente entity.
+        /// </summary>
+        /// <param name="pacienteDto">The DTO of the Paciente to create.</param>
+        /// <returns>The created Paciente entity.</returns>
+        [HttpPost("new")]
+        [SwaggerOperation(Summary = "Creates a new Paciente entity", Description = "Creates a new Paciente entity.")]
+        [SwaggerResponse(201, "Paciente created successfully")]
+        [SwaggerResponse(500, "Invalid input or Internal Error")]
+        public async Task<IActionResult> CreatePaciente([FromBody] PacienteDtos pacienteDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var newPaciente = await _pacienteRepository.Create(pacienteDto);
+            newPaciente.NrCpf = System.Text.RegularExpressions.Regex.Replace(newPaciente.NrCpf, "[^0-9]", "");
+            newPaciente.NrTelefone = System.Text.RegularExpressions.Regex.Replace(newPaciente.NrTelefone, "[^0-9]", "");
+
+            return CreatedAtAction(nameof(GetPacienteById), new { id = newPaciente.IdPaciente }, newPaciente);
+        }
+    }
+}
