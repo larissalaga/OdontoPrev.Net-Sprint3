@@ -8,12 +8,10 @@ namespace OdontoPrevAPI.Repositories.Implementations
     public class DentistaRepository : IDentistaRepository
     {
         private DataContext _context;
-
         public DentistaRepository(DataContext context)
         {
             _context = context;
         }
-
         public async Task<Models.Dentista> Create(DentistaDtos dentista)
         {
             var getDentista = await _context.Dentista.FirstOrDefaultAsync(x => x.DsCro == dentista.DsCro);

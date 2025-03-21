@@ -14,7 +14,6 @@ namespace OdontoPrevAPI.Repositories.Implementations
         {
             _context = context;
         }
-
         public async Task<Models.Perguntas> Create(PerguntasDtos perguntas)
         {
             // First check if this question already exists

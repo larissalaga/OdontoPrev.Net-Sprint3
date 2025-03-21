@@ -36,7 +36,7 @@ namespace OdontoPrevAPI.Repositories.Implementations
                             {paciente.DsSexo},
                             {paciente.NrTelefone},
                             {paciente.DsEmail},
-                            {paciente.IdPlano}
+                            {paciente.Plano?.DsCodigoPlano}
                         );
                     END;
                 ");
@@ -102,7 +102,8 @@ namespace OdontoPrevAPI.Repositories.Implementations
             if (getPaciente == null)
                 throw new Exception("Paciente não encontrado.");
             else
-                return getPaciente;
+                getPaciente.Plano = await _context.Plano.FirstOrDefaultAsync(x => x.IdPlano == getPaciente.IdPlano);
+            return getPaciente;
         }
 
         public async Task<Models.Paciente> GetById(int id)
@@ -111,6 +112,7 @@ namespace OdontoPrevAPI.Repositories.Implementations
             if (getPaciente == null)
                 throw new Exception("Paciente não encontrado.");
             else
+                getPaciente.Plano = await _context.Plano.FirstOrDefaultAsync(x => x.IdPlano == getPaciente.IdPlano);
                 return getPaciente;
         }
 
@@ -156,7 +158,7 @@ namespace OdontoPrevAPI.Repositories.Implementations
                             {paciente.DsEmail},
                             TO_DATE({dtNasc},'YYYY-MM-DD'),
                             {paciente.DsSexo},
-                            {paciente.IdPlano}
+                            {paciente.Plano?.DsCodigoPlano}
                         );
                     END;
                 ");

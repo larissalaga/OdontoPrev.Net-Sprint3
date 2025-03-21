@@ -9,6 +9,7 @@ namespace OdontoPrevAPI.Repositories.Implementations
     public class RespostasRepository : IRespostasRepository
     {
         private DataContext _context;
+
         public RespostasRepository(DataContext context)
         {
             _context = context;

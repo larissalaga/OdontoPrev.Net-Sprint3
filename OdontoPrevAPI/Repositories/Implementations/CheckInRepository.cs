@@ -14,7 +14,6 @@ namespace OdontoPrevAPI.Repositories.Implementations
         {
             _context = context;
         }
-
         public async Task<Models.CheckIn> Create(CheckInDtos checkIn)
         {
             // Validate that the required entities exist

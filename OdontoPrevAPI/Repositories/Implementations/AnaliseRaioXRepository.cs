@@ -7,11 +7,28 @@ namespace OdontoPrevAPI.Repositories.Implementations
 {
     public class AnaliseRaioXRepository : IAnaliseRaioXRepository
     {
+        private static AnaliseRaioXRepository _instance;
+        private static readonly object _lock = new object();
         private DataContext _context;
 
         public AnaliseRaioXRepository(DataContext context)
         {
             _context = context;
+        }
+
+        public static AnaliseRaioXRepository GetInstance(DataContext context)
+        {
+            if (_instance == null)
+            {
+                lock (_lock)
+                {
+                    if (_instance == null)
+                    {
+                        _instance = new AnaliseRaioXRepository(context);
+                    }
+                }
+            }
+            return _instance;
         }
 
         public async Task<Models.AnaliseRaioX> Create(AnaliseRaioXDtos analiseRaioX)

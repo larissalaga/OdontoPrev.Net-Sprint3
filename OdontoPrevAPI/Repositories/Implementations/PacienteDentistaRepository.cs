@@ -7,13 +7,11 @@ namespace OdontoPrevAPI.Repositories.Implementations
 {
     public class PacienteDentistaRepository : IPacienteDentistaRepository
     {
-        private readonly DataContext _context;
-
+        private DataContext _context;
         public PacienteDentistaRepository(DataContext context)
         {
             _context = context;
         }
-
         public async Task<PacienteDentista> Create(int idDentista, int idPaciente)
         {
             // Validate that the dentist exists

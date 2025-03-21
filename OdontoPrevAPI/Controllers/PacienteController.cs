@@ -91,6 +91,7 @@ namespace OdontoPrevAPI.Controllers
                 return BadRequest(ModelState);
             }
 
+            pacienteDto.Plano = await _planoRepository.GetById(pacienteDto.IdPlano);
             var newPaciente = await _pacienteRepository.Create(pacienteDto);
             newPaciente.NrCpf = Tools.StringTools.OnlyNumbers(newPaciente.NrCpf);
             newPaciente.NrTelefone = Tools.StringTools.OnlyNumbers(newPaciente.NrTelefone);
@@ -127,7 +128,21 @@ namespace OdontoPrevAPI.Controllers
             var dsEmail = string.IsNullOrEmpty(pacienteDto.DsEmail) ? existingPaciente.DsEmail : pacienteDto.DsEmail;
             var dtNascimento = (pacienteDto.DtNascimento == null) ? existingPaciente.DtNascimento : pacienteDto.DtNascimento;
             var dsSexo = string.IsNullOrEmpty(pacienteDto.DsSexo) ? existingPaciente.DsSexo : pacienteDto.DsSexo;
-            var idPlano = pacienteDto.IdPlano == null ? existingPaciente.IdPlano : pacienteDto.IdPlano.Value;
+            var plano = new Models.Plano();
+            var idPlano = existingPaciente.IdPlano;
+            if (pacienteDto.DsCodigoPlano != null)
+            {
+                plano = await _planoRepository.GetByDsCodigoPlano(pacienteDto.DsCodigoPlano);
+                if (plano == null)
+                {
+                    return NotFound("Plano não encontrado");
+                }
+                else
+                {
+                    idPlano = plano.IdPlano;
+                }
+            }
+            
 
             var updatedPacienteDto = new PacienteDtos
             {
@@ -137,7 +152,8 @@ namespace OdontoPrevAPI.Controllers
                 DsEmail = dsEmail,
                 DtNascimento = (DateTime)dtNascimento,
                 DsSexo = dsSexo,
-                IdPlano = idPlano
+                IdPlano = idPlano,
+                Plano = plano
             };
 
             var updatedPaciente = await _pacienteRepository.UpdateById(id, updatedPacienteDto);

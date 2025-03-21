@@ -9,6 +9,7 @@ namespace OdontoPrevAPI.Repositories.Implementations
     public class RaioXRepository : IRaioXRepository
     {
         private DataContext _context;
+
         public RaioXRepository(DataContext context)
         {
             _context = context;

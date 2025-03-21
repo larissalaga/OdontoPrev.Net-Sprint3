@@ -9,6 +9,7 @@ namespace OdontoPrevAPI.Repositories.Implementations
     public class PlanoRepository : IPlanoRepository
     {
         private DataContext _context;
+
         public PlanoRepository(DataContext context)
         {
             _context = context;
